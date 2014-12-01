@@ -1,0 +1,10 @@
+HammyRouter = require 'hammy/router'
+
+new HammyRouter (router, data)->
+  router.single 'landing', 'index.html', -> new LandingPage(posts: data.posts, projects: data.projects)
+
+  router.single 'post_index', 'posts/index.html', -> new PostsPage(posts: data.posts)
+  router.collection 'post_page', 'posts/:name.html', data.posts, (p)-> new PostPage(post: p)
+
+  router.single 'project_index', 'projects/index.html', -> new ProjectsPage(projects: data.projects)
+  router.collection 'project_page', 'projects/:name.html', data.projects, (p)-> new PostPage(project: p)
